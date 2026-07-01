@@ -25,6 +25,16 @@ class Turf < Formula
     doc.install "README.md"
   end
 
+  def caveats
+    <<~EOS
+      Turf is alpha / pre-release evaluation software, provided under the PolyForm
+      Free Trial License 1.0.0 (no warranty; see #{opt_prefix}/LICENSE). The `turf`
+      CLI is open source (MPL-2.0); component notices are in #{opt_prefix}/NOTICE.
+      By installing and using Turf you accept those terms. Please don't redistribute
+      the binaries.
+    EOS
+  end
+
   test do
     assert_match "v0.1.0-alpha.1", shell_output("#{bin}/turf --version")
     assert_match "v0.1.0-alpha.1", shell_output("#{bin}/turf-mcp-server --version")
