@@ -1,7 +1,7 @@
 class Turf < Formula
   desc "Drop-in replacement for Terraform with agentic superpowers (alpha)"
   homepage "https://github.com/turfbuild/turf"
-  version "0.1.0-alpha.1"
+  # version is scanned from the release URL.
   # PolyForm Free Trial 1.0.0 is not an SPDX/OSI identifier; :cannot_represent
   # is correct for a custom tap (this is not submitted to homebrew-core).
   license :cannot_represent
@@ -20,6 +20,9 @@ class Turf < Formula
   def install
     # Install both binaries: the CLI shells out to turf-mcp-server via PATH.
     bin.install "turf", "turf-mcp-server"
+    # Keep the evaluation license and third-party notices with the install.
+    prefix.install "LICENSE", "NOTICE"
+    doc.install "README.md"
   end
 
   test do
