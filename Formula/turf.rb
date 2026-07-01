@@ -8,12 +8,12 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.1/turf_v0.1.0-alpha.1_darwin_arm64.tar.gz"
-      sha256 "dbae4dd0dd5074300c125c96c9f518280e6618ea01c8cf8cea80c7956db55595"
+      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.2/turf_v0.1.0-alpha.2_darwin_arm64.tar.gz"
+      sha256 "dfc555831b9958771764fdb5d65eac62832e441d3c358a1fbdb368d7f6b6aa43"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.1/turf_v0.1.0-alpha.1_darwin_amd64.tar.gz"
-      sha256 "f61b00f8ca44bed9ff31e2c5bf6a73d58a9252f2726b17684f777b349026d5bb"
+      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.2/turf_v0.1.0-alpha.2_darwin_amd64.tar.gz"
+      sha256 "f86ee8ee447ea5b25733be82825b23b4e9d8920cd71e1fdf3785adabd8b02425"
     end
   end
 
@@ -36,7 +36,8 @@ class Turf < Formula
   end
 
   test do
-    assert_match "v0.1.0-alpha.1", shell_output("#{bin}/turf --version")
-    assert_match "v0.1.0-alpha.1", shell_output("#{bin}/turf-mcp-server --version")
+    # version.to_s (scanned from the URL) keeps this correct across releases.
+    assert_match version.to_s, shell_output("#{bin}/turf --version")
+    assert_match version.to_s, shell_output("#{bin}/turf-mcp-server --version")
   end
 end
