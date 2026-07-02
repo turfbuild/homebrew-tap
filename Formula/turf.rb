@@ -8,12 +8,12 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.4/turf_v0.1.0-alpha.4_darwin_arm64.tar.gz"
-      sha256 "4fd07d9ab423668556317c52860a019ae347222c52bb538c1d7fcd19e44255a5"
+      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.5/turf_v0.1.0-alpha.5_darwin_arm64.tar.gz"
+      sha256 "d5e722347954fe67469573248dec477a89518401d8264d7ac7ca1ece33e23c1e"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.4/turf_v0.1.0-alpha.4_darwin_amd64.tar.gz"
-      sha256 "66bd5a1fd0ff1a44fda61ee095cf8dbaed1e3fb39afa27ad51665a8728872719"
+      url "https://github.com/turfbuild/turf/releases/download/v0.1.0-alpha.5/turf_v0.1.0-alpha.5_darwin_amd64.tar.gz"
+      sha256 "469a015e56048d406c23cdb893bf4839f23fbd3a03f85394d80ff4a69c966308"
     end
   end
 
