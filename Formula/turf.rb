@@ -1,7 +1,9 @@
 class Turf < Formula
   desc "Drop-in replacement for Terraform with agentic superpowers (alpha)"
   homepage "https://github.com/turfbuild/turf"
-  # version is scanned from the release URL.
+  # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
+  # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
+  version "0.2.0"
   # PolyForm Free Trial 1.0.0 is not an SPDX/OSI identifier; :cannot_represent
   # is correct for a custom tap (this is not submitted to homebrew-core).
   license :cannot_represent
