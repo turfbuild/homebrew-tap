@@ -49,6 +49,13 @@ class Turf < Formula
       The released CLI is built without CGO on all platforms, so voice/audio input is
       inactive; text chat and all MCP tooling work fully.
 
+      Prefer your own MCP client? #{bin}/turf-mcp-server is on your PATH — register
+      it and drive infrastructure from there (in Claude Code / Desktop it runs on
+      your Claude subscription, no model API key):
+        claude mcp add turf -- turf-mcp-server
+      Per-client setup (Codex, Gemini, Cursor, VS Code, …):
+      https://github.com/turfbuild#use-it-as-an-mcp-server
+
       Every release artifact is signed and logged in the public Sigstore transparency
       log. To verify:
         gh attestation verify #{bin}/turf --repo turfbuild/turf
