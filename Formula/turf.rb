@@ -3,30 +3,30 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "0.14.0"
+  version "0.15.0"
   # PolyForm Free Trial 1.0.0 is not an SPDX/OSI identifier; :cannot_represent
   # is correct for a custom tap (this is not submitted to homebrew-core).
   license :cannot_represent
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.14.0/turf_v0.14.0_darwin_arm64.tar.gz"
-      sha256 "2a71654b4ef9288a661f89a3bb230d3358cc314cbf7dc3be2892f641317f653f"
+      url "https://github.com/turfbuild/turf/releases/download/v0.15.0/turf_v0.15.0_darwin_arm64.tar.gz"
+      sha256 "960f8eaa414c93e05f34974f6c6c55adbfb64f38a7e8a2f922f9ad0c683ffa1a"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.14.0/turf_v0.14.0_darwin_amd64.tar.gz"
-      sha256 "27404b6363cde4923458b5611e3a00274603f440d7694e137e18392da6e264ba"
+      url "https://github.com/turfbuild/turf/releases/download/v0.15.0/turf_v0.15.0_darwin_amd64.tar.gz"
+      sha256 "600a160e48e17be0fc8bf3d88d5f4ddf611fbd299731d89ca3ae4c80866b0037"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.14.0/turf_v0.14.0_linux_arm64.tar.gz"
-      sha256 "a4578e1242098e69c708652cb64c7e5d0b6e618aef60dcc7b3d4b2e1547d7272"
+      url "https://github.com/turfbuild/turf/releases/download/v0.15.0/turf_v0.15.0_linux_arm64.tar.gz"
+      sha256 "fc97d92f0cde2cd8e5ad68af6da2e0acd7616cc59b3399cbcf02fc702b9af59d"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.14.0/turf_v0.14.0_linux_amd64.tar.gz"
-      sha256 "83953882e5233ef7e200b3fd7d970510d7f4177ec87f5cb3bab1ca1d4a998283"
+      url "https://github.com/turfbuild/turf/releases/download/v0.15.0/turf_v0.15.0_linux_amd64.tar.gz"
+      sha256 "a9292a4188f54b4737693116e4cf2400e2dc1e14f15bddfdb8bea9ae8542ec6f"
     end
   end
 
