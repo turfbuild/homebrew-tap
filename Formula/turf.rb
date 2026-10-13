@@ -8,6 +8,11 @@ class Turf < Formula
   # is correct for a custom tap (this is not submitted to homebrew-core).
   license :cannot_represent
 
+  # The local engine (`turf-mcp-server engine run`, the service below) runs on
+  # restate-server, which is BUSL-1.1 and never redistributed in Turf's tarball:
+  # it comes from Restate's own tap.
+  depends_on "restatedev/tap/restate-server"
+
   on_macos do
     on_arm do
       url "https://github.com/turfbuild/turf/releases/download/v0.17.0/turf_v0.17.0_darwin_arm64.tar.gz"
@@ -31,15 +36,34 @@ class Turf < Formula
   end
 
   def install
-    # Install both binaries: the CLI shells out to turf-mcp-server via PATH.
-    bin.install "turf", "turf-mcp-server"
+    # The CLI shells out to turf-mcp-server via PATH; the server connects to the
+    # local engine, which finds turf-engine (and turf-engine its built-in
+    # provider) beside the server binary.
+    bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider"
     # Keep the evaluation license and third-party notices with the install.
     prefix.install "LICENSE", "NOTICE"
     doc.install "README.md"
   end
 
+  # This user's Turf engine: restate-server and turf-engine, supervised in
+  # ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
+  # to it; a rollout waiting for approval survives them. Extra environment for
+  # providers goes in ~/.homebrew/services/turf.env.
+  service do
+    run [opt_bin/"turf-mcp-server", "engine", "run"]
+    keep_alive crashed: true
+    log_path var/"log/turf-engine.log"
+    error_log_path var/"log/turf-engine.log"
+    environment_variables PATH: std_service_path_env
+  end
+
   def caveats
     <<~EOS
+      Start the local Turf engine (and at every login from now on):
+        brew services start turf
+      `turf-mcp-server engine status` says where it runs. After an upgrade, finish
+      or cancel any rollout waiting for approval, then `brew services restart turf`.
+
       Turf is alpha / pre-release evaluation software, provided under the PolyForm
       Free Trial License 1.0.0 (no warranty; see #{opt_prefix}/LICENSE). The `turf`
       CLI is open source (MPL-2.0); component notices are in #{opt_prefix}/NOTICE.
