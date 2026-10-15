@@ -1,12 +1,12 @@
 class Turf < Formula
-  desc "Drop-in replacement for Terraform with agentic superpowers (alpha)"
+  desc "Self-hosted, autonomous infrastructure-as-code tool built on OpenTofu"
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
   version "0.17.0"
-  # PolyForm Free Trial 1.0.0 is not an SPDX/OSI identifier; :cannot_represent
-  # is correct for a custom tap (this is not submitted to homebrew-core).
-  license :cannot_represent
+  # The license of the release archive (its LICENSE carries the Required Notice).
+  # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
+  license "PolyForm-Noncommercial-1.0.0"
 
   # The local engine (`turf-mcp-server engine run`, the service below) runs on
   # restate-server, which is BUSL-1.1 and never redistributed in Turf's tarball:
@@ -40,7 +40,7 @@ class Turf < Formula
     # local engine, which finds turf-engine (and turf-engine its built-in
     # provider) beside the server binary.
     bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider"
-    # Keep the evaluation license and third-party notices with the install.
+    # Keep the license and third-party notices with the install.
     prefix.install "LICENSE", "NOTICE"
     doc.install "README.md"
   end
@@ -64,11 +64,11 @@ class Turf < Formula
       `turf-mcp-server engine status` says where it runs. After an upgrade, finish
       or cancel any rollout waiting for approval, then `brew services restart turf`.
 
-      Turf is alpha / pre-release evaluation software, provided under the PolyForm
-      Free Trial License 1.0.0 (no warranty; see #{opt_prefix}/LICENSE). The `turf`
-      CLI is open source (MPL-2.0); component notices are in #{opt_prefix}/NOTICE.
-      By installing and using Turf you accept those terms. Please don't redistribute
-      the binaries.
+      Turf is free for noncommercial use under the PolyForm Noncommercial License
+      1.0.0 (no warranty; see #{opt_prefix}/LICENSE). Commercial use, including a
+      company's internal use, needs a license: https://turf.build/licensing. The
+      `turf` CLI is open source (MPL-2.0); component notices are in
+      #{opt_prefix}/NOTICE, and `turf license` prints both files.
 
       The released CLI is built without CGO on all platforms, so voice/audio input is
       inactive; text chat and all MCP tooling work fully.
