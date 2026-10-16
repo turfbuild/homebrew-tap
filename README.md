@@ -29,6 +29,15 @@ In Claude Code and Claude Desktop, Turf runs on your Claude subscription (no mod
 API key). Per-client setup for Codex, Gemini, Cursor, and others is on the
 [turfbuild org page](https://github.com/turfbuild#use-it-as-an-mcp-server).
 
+## Telemetry
+
+The Turf engine sends anonymous usage telemetry to Turf LLC by default: the
+version, the platform, and counts of resources, changes and runs, never their
+contents. `turf telemetry off`, then `brew services restart turf`, turns it
+off. With Homebrew's analytics off (`brew analytics off` or
+`HOMEBREW_NO_ANALYTICS`), the service starts with it off. The field list is at
+https://turf.build/telemetry.
+
 ## License
 
 Turf is free for noncommercial use under the PolyForm Noncommercial License

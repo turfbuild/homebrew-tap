@@ -54,7 +54,14 @@ class Turf < Formula
     keep_alive crashed: true
     log_path var/"log/turf-engine.log"
     error_log_path var/"log/turf-engine.log"
-    environment_variables PATH: std_service_path_env
+    # Homebrew's analytics opt-out (HOMEBREW_NO_ANALYTICS, or `brew analytics off`)
+    # is its do-not-track: the engine starts with its usage telemetry off. Read
+    # when `brew services` writes the service.
+    env = { PATH: std_service_path_env }
+    no_analytics = !ENV.fetch("HOMEBREW_NO_ANALYTICS", "").empty? ||
+                   (defined?(Utils::Analytics) && Utils::Analytics.disabled?)
+    env[:DO_NOT_TRACK] = "1" if no_analytics
+    environment_variables env
   end
 
   def caveats
@@ -69,6 +76,15 @@ class Turf < Formula
       company's internal use, needs a license: https://turf.build/licensing. The
       `turf` CLI is open source (MPL-2.0); component notices are in
       #{opt_prefix}/NOTICE, and `turf license` prints both files.
+
+      Turf sends anonymous usage telemetry to Turf LLC by default: the version, the
+      platform, and counts of resources, changes and runs, never their contents
+      (https://turf.build/telemetry). To turn it off:
+        turf telemetry off && brew services restart turf
+      DO_NOT_TRACK in your shell does not reach the service; put it in
+      ~/.homebrew/services/turf.env instead. With Homebrew's analytics off
+      (`brew analytics off` or HOMEBREW_NO_ANALYTICS), the service starts with
+      telemetry off.
 
       The released CLI is built without CGO on all platforms, so voice/audio input is
       inactive; text chat and all MCP tooling work fully.
