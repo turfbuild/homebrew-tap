@@ -76,7 +76,7 @@ class Turf < Formula
         npx add-mcp@2 #{HOMEBREW_PREFIX}/bin/turf-mcp-server --name turf -g
       or with the agent's own command: claude mcp add turf --scope user -- turf-mcp-server
       In Claude Code and Claude Desktop, Turf runs on your Claude subscription, no
-      model API key. Then, in your agent: /mcp__turf__guide. Per-client setup:
+      model API key. Then, in your agent: /turf:guide. Per-client setup:
       https://github.com/turfbuild#connect-your-agent
       Turf's own agent, `turf chat`, needs a model API key.
 
