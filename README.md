@@ -6,15 +6,17 @@ deploys the stack an AI factory runs on and keeps it that way, with an agent
 overseeing.
 
 ```sh
-brew install turfbuild/tap/turf
+brew install restatedev/tap/restate-server turfbuild/tap/turf
 brew services start turf        # this user's Turf engine, now and at every login
 ```
 
 This installs `turf` (the CLI), `turf-mcp-server`, `turf-engine` and
 `turf-builtin-provider`, plus `restate-server` from Restate's own tap, which the
-engine runs on. Supported on macOS (Apple Silicon + Intel) and Linux (x86_64 +
-arm64). On Linux the CLI is built without CGO, so voice/audio input is inactive;
-text chat and all MCP tooling work fully.
+engine runs on. Homebrew loads a formula from a third-party tap only when you
+name it, so the command names both; it also upgrades a 0.x install, where
+`brew upgrade turf` alone stops at restate-server. Supported on macOS (Apple
+Silicon + Intel) and Linux (x86_64 + arm64). On Linux the CLI is built without
+CGO, so voice/audio input is inactive; text chat and all MCP tooling work fully.
 
 ## Use it as an MCP server
 
