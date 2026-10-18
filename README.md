@@ -18,18 +18,30 @@ name it, so the command names both; it also upgrades a 0.x install, where
 Silicon + Intel) and Linux (x86_64 + arm64). On Linux the CLI is built without
 CGO, so voice/audio input is inactive; text chat and all MCP tooling work fully.
 
-## Use it as an MCP server
+## Connect your agent
 
-`turf-mcp-server` is on your `PATH` after install, so you can point any MCP client
-at it instead of using the CLI — e.g. register it with Claude Code:
+One command registers `turf-mcp-server` with the agents on your machine — Claude
+Code, Claude Desktop, Cursor, Codex, Gemini CLI, VS Code and others. It finds the
+ones you have, lets you pick, and writes each config with the server's absolute
+path, so an app launched from the Dock finds it too (Node 18+;
+[add-mcp](https://github.com/neon-solutions/add-mcp) is Neon's open-source
+installer):
 
 ```sh
-claude mcp add turf -- turf-mcp-server
+npx add-mcp@2 "$(command -v turf-mcp-server)" --name turf -g
 ```
 
-In Claude Code and Claude Desktop, Turf runs on your Claude subscription (no model
-API key). Per-client setup for Codex, Gemini, Cursor, and others is on the
-[turfbuild org page](https://github.com/turfbuild#use-it-as-an-mcp-server).
+Without Node, the agent's own command does the same, e.g.
+`claude mcp add turf --scope user -- turf-mcp-server`. In Claude Code and Claude
+Desktop, Turf runs on your Claude subscription (no model API key). Then, in your
+agent: `/mcp__turf__guide`. Per-client setup is on the
+[turfbuild org page](https://github.com/turfbuild#connect-your-agent).
+
+## The Turf CLI
+
+`turf chat` and `turf up` are Turf's own agent: the same server and engine, driven
+by a model you bring (`ANTHROPIC_API_KEY`, a local model, or a private endpoint).
+Its README: https://github.com/turfbuild/turf.
 
 ## Telemetry
 

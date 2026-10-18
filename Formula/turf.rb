@@ -71,6 +71,15 @@ class Turf < Formula
       `turf-mcp-server engine status` says where it runs. After an upgrade, finish
       or cancel any rollout waiting for approval, then `brew services restart turf`.
 
+      Connect your agent — Claude Code, Claude Desktop, Cursor, Codex, Gemini CLI,
+      VS Code and others — in one command (Node 18+), picking the ones you use:
+        npx add-mcp@2 #{HOMEBREW_PREFIX}/bin/turf-mcp-server --name turf -g
+      or with the agent's own command: claude mcp add turf --scope user -- turf-mcp-server
+      In Claude Code and Claude Desktop, Turf runs on your Claude subscription, no
+      model API key. Then, in your agent: /mcp__turf__guide. Per-client setup:
+      https://github.com/turfbuild#connect-your-agent
+      Turf's own agent, `turf chat`, needs a model API key.
+
       Turf is free for noncommercial use under the PolyForm Noncommercial License
       1.0.0 (no warranty; see #{opt_prefix}/LICENSE). Commercial use, including a
       company's internal use, needs a license: https://turf.build/licensing. The
@@ -88,13 +97,6 @@ class Turf < Formula
 
       The released CLI is built without CGO on all platforms, so voice/audio input is
       inactive; text chat and all MCP tooling work fully.
-
-      Prefer your own MCP client? #{bin}/turf-mcp-server is on your PATH — register
-      it and drive infrastructure from there (in Claude Code / Desktop it runs on
-      your Claude subscription, no model API key):
-        claude mcp add turf -- turf-mcp-server
-      Per-client setup (Codex, Gemini, Cursor, VS Code, …):
-      https://github.com/turfbuild#use-it-as-an-mcp-server
 
       Every release artifact is signed and logged in the public Sigstore transparency
       log. To verify:
