@@ -3,7 +3,7 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "0.17.0"
+  version "1.0.0"
   # The license of the release archive (its LICENSE carries the Required Notice).
   # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
   license "PolyForm-Noncommercial-1.0.0"
@@ -15,23 +15,23 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.17.0/turf_v0.17.0_darwin_arm64.tar.gz"
-      sha256 "7674907585dde94e3e561566f9baa7700d3b95c81946253a79db2cbfefe2efc0"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_darwin_arm64.tar.gz"
+      sha256 "d25332f9b00aa693a3129cc78b7f7fa7ead9c825cab450df978349af56bcd927"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.17.0/turf_v0.17.0_darwin_amd64.tar.gz"
-      sha256 "606e7d256b73d74e03f6324c57e5f4b83e814c60889ea279e309f14c407580a4"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_darwin_amd64.tar.gz"
+      sha256 "9f6a8e8091cd7a6c586c296823f911ff141bbba81196f5700c1f85bd009bedd7"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v0.17.0/turf_v0.17.0_linux_arm64.tar.gz"
-      sha256 "5be89b19394261464d216fb9e1a9d0e73fb3ea88543f84f79de159d3190dbee5"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_linux_arm64.tar.gz"
+      sha256 "53b01eb1f1924eb6e7bbd074f72ad42ca100f68dd2a9fcf9ea964062ad8808c1"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v0.17.0/turf_v0.17.0_linux_amd64.tar.gz"
-      sha256 "f6ae1db59f89f0586824d7cb3069ff9b32a97baac50152807a2fdf7f9b6eb50c"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_linux_amd64.tar.gz"
+      sha256 "51464fa8ae31be09ea13c54c033a2dd8199d441572d0b7fd423c0550533f1b7f"
     end
   end
 
