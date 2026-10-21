@@ -3,7 +3,7 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "1.0.0"
+  version "1.0.1"
   # The license of the release archive (its LICENSE carries the Required Notice).
   # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
   license "PolyForm-Noncommercial-1.0.0"
@@ -15,23 +15,23 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_darwin_arm64.tar.gz"
-      sha256 "d25332f9b00aa693a3129cc78b7f7fa7ead9c825cab450df978349af56bcd927"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_darwin_arm64.tar.gz"
+      sha256 "c2057c9aa0066c10c90d79b9cbfad52157ffd144604cc36d0216ddeafae36de2"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_darwin_amd64.tar.gz"
-      sha256 "9f6a8e8091cd7a6c586c296823f911ff141bbba81196f5700c1f85bd009bedd7"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_darwin_amd64.tar.gz"
+      sha256 "cc4b16e4da5f345163c2f061988a415098c381c49ec87d1e9804f797cd77cb3d"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_linux_arm64.tar.gz"
-      sha256 "53b01eb1f1924eb6e7bbd074f72ad42ca100f68dd2a9fcf9ea964062ad8808c1"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_linux_arm64.tar.gz"
+      sha256 "746a58a8ee1358ec3a97fdeebc8c428180e80c3e8b4ae4937e19c1a0af6b03ed"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.0/turf_v1.0.0_linux_amd64.tar.gz"
-      sha256 "51464fa8ae31be09ea13c54c033a2dd8199d441572d0b7fd423c0550533f1b7f"
+      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_linux_amd64.tar.gz"
+      sha256 "e2124664147060bae903aa10880bdb1914b0980a55e78d54f4825edff004906d"
     end
   end
 
