@@ -3,7 +3,7 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "1.0.1"
+  version "1.1.0"
   # The license of the release archive (its LICENSE carries the Required Notice).
   # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
   license "PolyForm-Noncommercial-1.0.0"
@@ -15,23 +15,23 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_darwin_arm64.tar.gz"
-      sha256 "c2057c9aa0066c10c90d79b9cbfad52157ffd144604cc36d0216ddeafae36de2"
+      url "https://github.com/turfbuild/turf/releases/download/v1.1.0/turf_v1.1.0_darwin_arm64.tar.gz"
+      sha256 "140d60fe93e3cd8458e1be2e937394d16a7dfa76ecd2e94093c967b4da0a7671"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_darwin_amd64.tar.gz"
-      sha256 "cc4b16e4da5f345163c2f061988a415098c381c49ec87d1e9804f797cd77cb3d"
+      url "https://github.com/turfbuild/turf/releases/download/v1.1.0/turf_v1.1.0_darwin_amd64.tar.gz"
+      sha256 "c7ce69a0bb7ae5d264f65aabf23c1fadb6718a68a1b0d08f3c7e1a077f43d3e2"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_linux_arm64.tar.gz"
-      sha256 "746a58a8ee1358ec3a97fdeebc8c428180e80c3e8b4ae4937e19c1a0af6b03ed"
+      url "https://github.com/turfbuild/turf/releases/download/v1.1.0/turf_v1.1.0_linux_arm64.tar.gz"
+      sha256 "cf73be8ff31f92747f77450218d927150a7822569a05a99ea349441d619c7baa"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.0.1/turf_v1.0.1_linux_amd64.tar.gz"
-      sha256 "e2124664147060bae903aa10880bdb1914b0980a55e78d54f4825edff004906d"
+      url "https://github.com/turfbuild/turf/releases/download/v1.1.0/turf_v1.1.0_linux_amd64.tar.gz"
+      sha256 "029fb33f46a56860ecbc78ed272b3c618985e49bcbe3acf56c417d5773cf6744"
     end
   end
 
@@ -68,8 +68,11 @@ class Turf < Formula
     <<~EOS
       Start the local Turf engine (and at every login from now on):
         brew services start turf
-      `turf-mcp-server engine status` says where it runs. After an upgrade, finish
-      or cancel any rollout waiting for approval, then `brew services restart turf`.
+      `turf-mcp-server engine status` says where it runs. After an upgrade:
+        brew services restart turf
+      and reconnect your agent's MCP server. A minor upgrade (1.0 to 1.1) stops any
+      rollout still running on the old engine; what was applied is kept, so run
+      `up` again to finish it.
 
       Connect your agent — Claude Code, Claude Desktop, Cursor, Codex, Gemini CLI,
       VS Code and others — in one command (Node 18+), picking the ones you use:
