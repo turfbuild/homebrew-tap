@@ -52,6 +52,13 @@ off. With Homebrew's analytics off (`brew analytics off` or
 `HOMEBREW_NO_ANALYTICS`), the service starts with it off. The field list is at
 https://turf.build/telemetry.
 
+## Community
+
+Questions and ideas: https://turf.build/discord/. A problem with the formula or
+the service is an issue here; a bug in Turf goes to
+https://github.com/turfbuild/turf/issues. Release notes by email:
+https://turf.build/newsletter/. Everything else: https://turf.build/community/.
+
 ## License
 
 Turf is free for noncommercial use under the PolyForm Noncommercial License
