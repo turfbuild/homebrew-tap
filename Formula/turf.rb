@@ -69,7 +69,8 @@ class Turf < Formula
       Start the local Turf engine (and at every login from now on):
         brew services start turf
       `turf-mcp-server engine status` says where it runs. The Turf console is at
-      http://127.0.0.1:8873 (read-only, loopback only; TURF_CONSOLE_ADDR=off in
+      http://127.0.0.1:8873 (read-only, and only you can open it: sign this
+      browser in once with `turf console`; TURF_CONSOLE_ADDR=off in
       ~/.homebrew/services/turf.env turns it off). After an upgrade:
         brew services restart turf
       and reconnect your agent's MCP server. A minor upgrade (1.2 to 1.3) stops any
