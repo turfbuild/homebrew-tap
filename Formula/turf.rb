@@ -38,15 +38,15 @@ class Turf < Formula
   def install
     # The CLI shells out to turf-mcp-server via PATH; the server connects to the
     # local engine, which finds turf-engine (and turf-engine its built-in
-    # provider) beside the server binary.
-    bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider"
+    # provider) and the console, turf-ui, beside the server binary.
+    bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider", "turf-ui"
     # Keep the license and third-party notices with the install.
     prefix.install "LICENSE", "NOTICE"
     doc.install "README.md"
   end
 
-  # This user's Turf engine: restate-server and turf-engine, supervised in
-  # ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
+  # This user's Turf engine: restate-server, turf-engine and the Turf console
+  # (turf-ui, http://127.0.0.1:8873), supervised in ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
   # to it; a rollout waiting for approval survives them. Extra environment for
   # providers goes in ~/.homebrew/services/turf.env.
   service do
@@ -68,7 +68,9 @@ class Turf < Formula
     <<~EOS
       Start the local Turf engine (and at every login from now on):
         brew services start turf
-      `turf-mcp-server engine status` says where it runs. After an upgrade:
+      `turf-mcp-server engine status` says where it runs. The Turf console is at
+      http://127.0.0.1:8873 (read-only, loopback only; TURF_CONSOLE_ADDR=off in
+      ~/.homebrew/services/turf.env turns it off). After an upgrade:
         brew services restart turf
       and reconnect your agent's MCP server. A minor upgrade (1.2 to 1.3) stops any
       rollout still running on the old engine; what was applied is kept, so run
