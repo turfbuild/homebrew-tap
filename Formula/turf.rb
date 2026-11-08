@@ -3,7 +3,7 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "1.3.0"
+  version "1.4.0"
   # The license of the release archive (its LICENSE carries the Required Notice).
   # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
   license "PolyForm-Noncommercial-1.0.0"
@@ -15,38 +15,38 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.3.0/turf_v1.3.0_darwin_arm64.tar.gz"
-      sha256 "a1da15a7e2de84e3eea688b8c66f71fdfae42b092a6ef0f69864a6aceb190ad3"
+      url "https://github.com/turfbuild/turf/releases/download/v1.4.0/turf_v1.4.0_darwin_arm64.tar.gz"
+      sha256 "bbabaac0692f43785aaa97220bde71946aa302c82246b93cfddf94f69f396a9c"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.3.0/turf_v1.3.0_darwin_amd64.tar.gz"
-      sha256 "e7a552d9d89708f7fcca2a8d173668cd4b0134ba9354dada87cd71cc5ef60e54"
+      url "https://github.com/turfbuild/turf/releases/download/v1.4.0/turf_v1.4.0_darwin_amd64.tar.gz"
+      sha256 "68e7baf5f662fee7b4adeec387485cc49026bf3099e4f27afa1ea04415251b7f"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.3.0/turf_v1.3.0_linux_arm64.tar.gz"
-      sha256 "e5560ac72e342c9321b8796b76536ce1438f7d8aaf1d70c7c038cb52fce8c7f4"
+      url "https://github.com/turfbuild/turf/releases/download/v1.4.0/turf_v1.4.0_linux_arm64.tar.gz"
+      sha256 "06669338bd002cbb2bde2d8b59142e7239ab0d73726fb124413169d7282d0294"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.3.0/turf_v1.3.0_linux_amd64.tar.gz"
-      sha256 "a2e48149fdad58972bf8be585cb0ba683025c27375a7bc1348c45c6b1f30851d"
+      url "https://github.com/turfbuild/turf/releases/download/v1.4.0/turf_v1.4.0_linux_amd64.tar.gz"
+      sha256 "4f2757eaab650d84fed525c021a3e469b81062c9ffaf6b9f263f03bc424234c6"
     end
   end
 
   def install
     # The CLI shells out to turf-mcp-server via PATH; the server connects to the
     # local engine, which finds turf-engine (and turf-engine its built-in
-    # provider) beside the server binary.
-    bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider"
+    # provider) and the console, turf-ui, beside the server binary.
+    bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider", "turf-ui"
     # Keep the license and third-party notices with the install.
     prefix.install "LICENSE", "NOTICE"
     doc.install "README.md"
   end
 
-  # This user's Turf engine: restate-server and turf-engine, supervised in
-  # ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
+  # This user's Turf engine: restate-server, turf-engine and the Turf console
+  # (turf-ui, http://127.0.0.1:8873), supervised in ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
   # to it; a rollout waiting for approval survives them. Extra environment for
   # providers goes in ~/.homebrew/services/turf.env.
   service do
@@ -68,9 +68,12 @@ class Turf < Formula
     <<~EOS
       Start the local Turf engine (and at every login from now on):
         brew services start turf
-      `turf-mcp-server engine status` says where it runs. After an upgrade:
+      `turf-mcp-server engine status` says where it runs. The Turf console is at
+      http://127.0.0.1:8873 (read-only, and only you can open it: sign this
+      browser in once with `turf console`; TURF_CONSOLE_ADDR=off in
+      ~/.homebrew/services/turf.env turns it off). After an upgrade:
         brew services restart turf
-      and reconnect your agent's MCP server. A minor upgrade (1.2 to 1.3) stops any
+      and reconnect your agent's MCP server. A minor upgrade (1.3 to 1.4) stops any
       rollout still running on the old engine; what was applied is kept, so run
       `up` again, then `plan`, to finish it.
 
@@ -113,5 +116,6 @@ class Turf < Formula
     # version.to_s (scanned from the URL) keeps this correct across releases.
     assert_match version.to_s, shell_output("#{bin}/turf --version")
     assert_match version.to_s, shell_output("#{bin}/turf-mcp-server --version")
+    assert_match version.to_s, shell_output("#{bin}/turf-ui --version")
   end
 end
