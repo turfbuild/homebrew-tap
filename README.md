@@ -7,12 +7,21 @@ overseeing.
 
 ```sh
 brew install restatedev/tap/restate-server turfbuild/tap/turf
+turf license accept             # accept the Turf license terms, once per machine
 brew services start turf        # this user's Turf engine, now and at every login
 ```
 
-This installs `turf` (the CLI), `turf-mcp-server`, `turf-engine` and
-`turf-builtin-provider`, plus `restate-server` from Restate's own tap, which the
-engine runs on. Homebrew loads a formula from a third-party tap only when you
+`turf license accept` accepts the
+[Turf Community Edition License](https://turf.build/license/v1/) and records it
+in `~/.turf/license.json`. No Turf binary does any work until the terms are
+accepted: the engine service waits for the record and starts within seconds of
+it. `TURF_ACCEPT_EULA=yes` in your shell accepts for the processes started from
+that shell only; it does not reach the service. Every way to accept, per
+binary: https://turf.build/docs/start/install/#accept-the-license.
+
+This installs `turf` (the CLI), `turf-mcp-server`, `turf-engine`,
+`turf-builtin-provider` and `turf-ui` (the Turf console), plus `restate-server`
+from Restate's own tap, which the engine runs on. Homebrew loads a formula from a third-party tap only when you
 name it, so the command names both; it also upgrades a 0.x install, where
 `brew upgrade turf` alone stops at restate-server. Supported on macOS (Apple
 Silicon + Intel) and Linux (x86_64 + arm64). On Linux the CLI is built without
@@ -61,11 +70,18 @@ https://turf.build/newsletter/. Everything else: https://turf.build/community/.
 
 ## License
 
-Turf is free for noncommercial use under the PolyForm Noncommercial License
-1.0.0. Commercial use, including a company's internal use, needs a license:
-https://turf.build/licensing. The `turf` CLI is open source (MPL-2.0). The
-formula installs `LICENSE` and `NOTICE` beside the binaries, and `turf license`
-prints them. Release notes: https://github.com/turfbuild/turf/releases.
+Turf is proprietary software under the
+[Turf Community Edition License 1.0](https://turf.build/license/v1/). It is free
+for individuals, education and small businesses within the Community limits.
+Government and larger organizations need a commercial license
+(https://turf.build/licensing/). Anyone may evaluate Turf, not in production,
+for 30 days. Accept the terms with `turf license accept` (or
+`TURF_ACCEPT_EULA=yes` in a process's environment) before first use. Releases
+1.0 through 1.4 keep the PolyForm Noncommercial License 1.0.0 they shipped
+with. The `turf` CLI's source is open source (MPL-2.0). The formula installs
+`LICENSE`, `STANDARD-TERMS.md` and `NOTICE` beside the binaries, and
+`turf license` prints all three. Release notes:
+https://github.com/turfbuild/turf/releases.
 
 Turf™ is a trademark of Turf LLC. OpenTofu™ is a trademark of The Linux
 Foundation. Turf is not affiliated with or endorsed by the Linux Foundation or

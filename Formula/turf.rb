@@ -4,9 +4,11 @@ class Turf < Formula
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
   version "1.4.0"
-  # The license of the release archive (its LICENSE carries the Required Notice).
-  # The turf CLI alone is MPL-2.0; the archive as a whole is the Larger Work.
-  license "PolyForm-Noncommercial-1.0.0"
+  # The release archive is proprietary: the Turf Community Edition License 1.0
+  # (https://turf.build/license/v1/, the archive's LICENSE), which has no SPDX id.
+  # The turf CLI's own source is MPL-2.0. Releases 1.0 through 1.4 shipped under
+  # PolyForm-Noncommercial-1.0.0.
+  license :cannot_represent
 
   # The local engine (`turf-mcp-server engine run`, the service below) runs on
   # restate-server, which is BUSL-1.1 and never redistributed in Turf's tarball:
@@ -40,8 +42,9 @@ class Turf < Formula
     # local engine, which finds turf-engine (and turf-engine its built-in
     # provider) and the console, turf-ui, beside the server binary.
     bin.install "turf", "turf-mcp-server", "turf-engine", "turf-builtin-provider", "turf-ui"
-    # Keep the license and third-party notices with the install.
-    prefix.install "LICENSE", "NOTICE"
+    # Keep the license, the standard terms it incorporates and the third-party
+    # notices with the install.
+    prefix.install "LICENSE", "STANDARD-TERMS.md", "NOTICE"
     doc.install "README.md"
   end
 
@@ -66,6 +69,13 @@ class Turf < Formula
 
   def caveats
     <<~EOS
+      First, accept the Turf license terms (https://turf.build/license/v1/):
+        turf license accept
+      This records your acceptance in ~/.turf/license.json. No Turf binary does
+      any work until the terms are accepted; the engine service waits for it and
+      starts within seconds. TURF_ACCEPT_EULA=yes in your shell accepts for the
+      processes started from that shell only: it does not reach the service.
+
       Start the local Turf engine (and at every login from now on):
         brew services start turf
       `turf-mcp-server engine status` says where it runs. The Turf console is at
@@ -86,11 +96,14 @@ class Turf < Formula
       https://github.com/turfbuild#connect-your-agent
       Turf's own agent, `turf chat`, needs a model API key.
 
-      Turf is free for noncommercial use under the PolyForm Noncommercial License
-      1.0.0 (no warranty; see #{opt_prefix}/LICENSE). Commercial use, including a
-      company's internal use, needs a license: https://turf.build/licensing. The
-      `turf` CLI is open source (MPL-2.0); component notices are in
-      #{opt_prefix}/NOTICE, and `turf license` prints both files.
+      Turf is proprietary software under the Turf Community Edition License 1.0
+      (#{opt_prefix}/LICENSE, with #{opt_prefix}/STANDARD-TERMS.md;
+      https://turf.build/license/v1/). Free for individuals, education and small
+      businesses within the Community limits. Government and larger organizations
+      need a commercial license: https://turf.build/licensing/. Anyone may evaluate
+      Turf, not in production, for 30 days. The `turf` CLI's source is open
+      source (MPL-2.0); component notices are in #{opt_prefix}/NOTICE, and
+      `turf license` prints all three files.
 
       Turf sends anonymous usage telemetry to Turf LLC by default: the version, the
       platform, and counts of resources, changes and runs, never their contents
@@ -115,6 +128,8 @@ class Turf < Formula
   test do
     # version.to_s (scanned from the URL) keeps this correct across releases.
     assert_match version.to_s, shell_output("#{bin}/turf --version")
+    # --version needs no license acceptance and names the license.
+    assert_match "Turf Community Edition License", shell_output("#{bin}/turf --version")
     assert_match version.to_s, shell_output("#{bin}/turf-mcp-server --version")
     assert_match version.to_s, shell_output("#{bin}/turf-ui --version")
   end
