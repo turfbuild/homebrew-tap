@@ -50,8 +50,8 @@ class Turf < Formula
 
   # This user's Turf engine: restate-server, turf-engine and the Turf console
   # (turf-ui, http://127.0.0.1:8873), supervised in ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
-  # to it; a rollout waiting for approval survives them. Extra environment for
-  # providers goes in ~/.homebrew/services/turf.env.
+  # to it; a rollout waiting for approval survives them. The engine's own extra
+  # environment (a proxy, a PATH) goes in ~/.homebrew/services/turf.env.
   service do
     run [opt_bin/"turf-mcp-server", "engine", "run"]
     keep_alive crashed: true
@@ -72,16 +72,21 @@ class Turf < Formula
       First, accept the Turf license terms (https://turf.build/license/v1/):
         turf license accept
       This records your acceptance in ~/.turf/license.json. No Turf binary does
-      any work until the terms are accepted; the engine service waits for it and
-      starts within seconds. TURF_ACCEPT_EULA=yes in your shell accepts for the
-      processes started from that shell only: it does not reach the service.
+      any work until the terms are accepted: no engine starts, and the service,
+      if you run it, waits and starts within seconds. TURF_ACCEPT_EULA=yes in
+      your shell accepts for the processes started from that shell only: it does
+      not reach the service.
 
-      Start the local Turf engine (and at every login from now on):
+      The service is optional: the engine starts when a tool first needs it;
+      `brew services start turf` starts it at login instead:
         brew services start turf
-      `turf-mcp-server engine status` says where it runs. The Turf console is at
-      http://127.0.0.1:8873 (read-only, and only you can open it: sign this
-      browser in once with `turf console`; TURF_CONSOLE_ADDR=off in
-      ~/.homebrew/services/turf.env turns it off). After an upgrade:
+      `turf-mcp-server engine status` says where it runs and how it was started.
+      The Turf console is at http://127.0.0.1:8873 (read-only, and only you can
+      open it: sign this browser in once with `turf console`; for the service,
+      TURF_CONSOLE_ADDR=off in ~/.homebrew/services/turf.env turns it off).
+      After an upgrade, restart the engine, which an upgrade leaves running:
+        turf-mcp-server engine stop
+      (the next request starts the new one), or, if you run the service:
         brew services restart turf
       and reconnect your agent's MCP server. A minor upgrade (1.3 to 1.4) stops any
       rollout still running on the old engine; what was applied is kept, so run
@@ -108,8 +113,10 @@ class Turf < Formula
       Turf sends anonymous usage telemetry to Turf LLC by default: the version, the
       platform, and counts of resources, changes and runs, never their contents
       (https://turf.build/telemetry). To turn it off:
-        turf telemetry off && brew services restart turf
-      DO_NOT_TRACK in your shell does not reach the service; put it in
+        turf telemetry off
+      then restart the engine: `turf-mcp-server engine stop` (the next request
+      starts it again), or `brew services restart turf` if you run the
+      service. DO_NOT_TRACK in your shell does not reach the service; put it in
       ~/.homebrew/services/turf.env instead. With Homebrew's analytics off
       (`brew analytics off` or HOMEBREW_NO_ANALYTICS), the service starts with
       telemetry off.

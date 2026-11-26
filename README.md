@@ -5,19 +5,31 @@ self-hosted, autonomous infrastructure-as-code tool, built on OpenTofu™. It
 deploys the stack an AI factory runs on and keeps it that way, with an agent
 overseeing.
 
+The MCP server alone, for the agent you already use, installs through npx with
+no Homebrew: `npx add-mcp@2 @turfbuild/turf-mcp-server --name turf -g`.
+Homebrew adds the `turf` CLI and an engine that starts at login.
+
 ```sh
 brew install restatedev/tap/restate-server turfbuild/tap/turf
 turf license accept             # accept the Turf license terms, once per machine
-brew services start turf        # this user's Turf engine, now and at every login
+brew services start turf        # optional: the engine at every login
 ```
 
 `turf license accept` accepts the
 [Turf Community Edition License](https://turf.build/license/v1/) and records it
 in `~/.turf/license.json`. No Turf binary does any work until the terms are
-accepted: the engine service waits for the record and starts within seconds of
-it. `TURF_ACCEPT_EULA=yes` in your shell accepts for the processes started from
-that shell only; it does not reach the service. Every way to accept, per
-binary: https://turf.build/docs/start/install/#accept-the-license.
+accepted: no engine starts, and the service, if you run it, waits for the
+record and starts within seconds of it. `TURF_ACCEPT_EULA=yes` in your shell
+accepts for the processes started from that shell only; it does not reach the
+service. Every way to accept, per binary:
+https://turf.build/docs/start/install/#accept-the-license.
+
+The service is optional: the engine starts when a tool first needs it;
+`brew services start turf` starts it at login instead. Either way it keeps
+running when your agent quits, and `turf-mcp-server engine status` says where
+it runs and how it was started. After `brew upgrade turf`, restart it:
+`turf-mcp-server engine stop` (the next request starts the new one), or
+`brew services restart turf` if you run the service.
 
 This installs `turf` (the CLI), `turf-mcp-server`, `turf-engine`,
 `turf-builtin-provider` and `turf-ui` (the Turf console), plus `restate-server`
@@ -56,10 +68,11 @@ Its README: https://github.com/turfbuild/turf.
 
 The Turf engine sends anonymous usage telemetry to Turf LLC by default: the
 version, the platform, and counts of resources, changes and runs, never their
-contents. `turf telemetry off`, then `brew services restart turf`, turns it
-off. With Homebrew's analytics off (`brew analytics off` or
-`HOMEBREW_NO_ANALYTICS`), the service starts with it off. The field list is at
-https://turf.build/telemetry.
+contents. `turf telemetry off` turns it off, then restart the engine:
+`turf-mcp-server engine stop` (the next request starts it again), or
+`brew services restart turf` if you run the service. With Homebrew's analytics
+off (`brew analytics off` or `HOMEBREW_NO_ANALYTICS`), the service starts with
+it off. The field list is at https://turf.build/telemetry.
 
 ## Community
 
