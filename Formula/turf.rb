@@ -50,8 +50,8 @@ class Turf < Formula
 
   # This user's Turf engine: restate-server, turf-engine and the Turf console
   # (turf-ui, http://127.0.0.1:8873), supervised in ~/.turf/engine. Every server (each `turf` command, each MCP client) connects
-  # to it; a rollout waiting for approval survives them. Extra environment for
-  # providers goes in ~/.homebrew/services/turf.env.
+  # to it; a rollout waiting for approval survives them. The engine's own extra
+  # environment (a proxy, a PATH) goes in ~/.homebrew/services/turf.env.
   service do
     run [opt_bin/"turf-mcp-server", "engine", "run"]
     keep_alive crashed: true
