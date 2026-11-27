@@ -3,7 +3,7 @@ class Turf < Formula
   homepage "https://github.com/turfbuild/turf"
   # Pinned explicitly: Homebrew's URL version scanner mis-reads a plain vX.Y.Z
   # tag (grabs "64" from amd64/arm64), so set it here rather than rely on the URL.
-  version "1.5.0"
+  version "1.5.1"
   # The release archive is proprietary: the Turf Community Edition License 1.0
   # (https://turf.build/license/v1/, the archive's LICENSE), which has no SPDX id.
   # The turf CLI's own source is MPL-2.0. Releases 1.0 through 1.4 shipped under
@@ -17,23 +17,23 @@ class Turf < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.5.0/turf_v1.5.0_darwin_arm64.tar.gz"
-      sha256 "afd998181efe092d336e162675ef5090bb4d35f833c9f84dc7e4cc1f895cf501"
+      url "https://github.com/turfbuild/turf/releases/download/v1.5.1/turf_v1.5.1_darwin_arm64.tar.gz"
+      sha256 "260e52efdfefbf48c02f523506ef1eeaca01b085e5f894f6468bb25374a4ef8b"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.5.0/turf_v1.5.0_darwin_amd64.tar.gz"
-      sha256 "530444b2aad25ba2d924781abbeb5b0f3e52bd771589bb906e8b751d8780a4b0"
+      url "https://github.com/turfbuild/turf/releases/download/v1.5.1/turf_v1.5.1_darwin_amd64.tar.gz"
+      sha256 "5a03506547abc96d0494b9a684bc9c36b19d02e6e1e2746d6885cccd10f753e7"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/turfbuild/turf/releases/download/v1.5.0/turf_v1.5.0_linux_arm64.tar.gz"
-      sha256 "e322f566bd51840f64da889d27bc0574b9b7917b7a2c6dc9c29dffb80b2e8835"
+      url "https://github.com/turfbuild/turf/releases/download/v1.5.1/turf_v1.5.1_linux_arm64.tar.gz"
+      sha256 "0ffa05451c35815595a321051651e13d8a3b39ec8d7b1b20f3ae0f3071963949"
     end
     on_intel do
-      url "https://github.com/turfbuild/turf/releases/download/v1.5.0/turf_v1.5.0_linux_amd64.tar.gz"
-      sha256 "6a29b7b4fd0526b2ac0ecfd689cdfe8055509193be0422321f2d8d1617b648bb"
+      url "https://github.com/turfbuild/turf/releases/download/v1.5.1/turf_v1.5.1_linux_amd64.tar.gz"
+      sha256 "13dcd338f0448ad12c937af10b7f0637dacaf7c4e6959b1d0fd8e4137e484e6b"
     end
   end
 
